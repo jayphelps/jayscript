@@ -40,7 +40,7 @@ jayscript example.js
 If you want to optimize the Wasm output, you can pass the `-Oz` flag:
 
 ```bash
-jayscript example.js
+jayscript example.js -Oz
 
     (module
      (type $none_=>_i32 (func (result i32)))
