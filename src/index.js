@@ -11,15 +11,12 @@ class Parser {
   lookaheads = [];
 
   eof() {
-    return this.index >= this.input.length - 1;
+    return this.index >= this.input.length;
   }
 
   skipWhitespace() {
     while (!this.eof()) {
       const ch = this.input[this.index];
-      if (ch == undefined) {
-        console.log(this.index, this.input.length, this.eof());
-      }
       if (ch.match(/\S/)) {
         return;
       }
@@ -363,4 +360,6 @@ export function main(args) {
 
   const text = readBinary(binary);
   console.log(text.emitText());
+  const filePathWithoutExtension = filePath.slice(0, filePath.lastIndexOf('.'));
+  fs.writeFileSync(`${filePathWithoutExtension}.wasm`, binary);
 }
