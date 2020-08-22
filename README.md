@@ -3,7 +3,7 @@
 ## Install
 
 ```bash
-npm install jayscript
+npm install jayscript -g
 ```
 
 ## Usage
