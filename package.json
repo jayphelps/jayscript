@@ -1,0 +1,24 @@
+{
+  "name": "jayscript",
+  "version": "0.0.1",
+  "description": "For the lolz",
+  "type": "module",
+  "main": "index.js",
+  "bin": "bin/jayscript.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayphelps/jayscript.git"
+  },
+  "author": "Jay Phelps <hello@jayphelps.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jayphelps/jayscript/issues"
+  },
+  "homepage": "https://github.com/jayphelps/jayscript#readme",
+  "dependencies": {
+    "binaryen": "^96.0.0"
+  }
+}
