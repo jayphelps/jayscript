@@ -35,6 +35,22 @@ jayscript example.js
 
 ```
 
+### Options
+
+If you want to optimize the Wasm output, you can pass the `-Oz` flag:
+
+```bash
+jayscript example.js
+
+    (module
+     (type $none_=>_i32 (func (result i32)))
+     (export "main" (func $0))
+     (func $0 (result i32)
+      (i32.const 3)
+     )
+    )
+```
+
 ## Notes
 
 This is just a joke. :shipit:

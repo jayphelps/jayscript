@@ -339,6 +339,12 @@ function compile(input) {
   return module.emitBinary();
 }
 
+// lolz
+function optimizingCompiler(binary) {
+  const module = readBinary(binary);
+  module.optimize();
+  return module.emitBinary();
+}
 
 function panic(msg) {
   console.error(msg);
@@ -350,16 +356,19 @@ export function main(args) {
     panic('Please provide an input file path');
   }
 
-  if (args.length > 1) {
-    panic('You can only provide a single input file path');
+  const optimizeIndex = args.indexOf('-Oz');
+  const optimize = optimizeIndex !== -1;
+  if (optimize) {
+    args.splice(optimizeIndex, 1);
   }
 
   const [filePath] = args;
   const contents = fs.readFileSync(filePath, 'utf-8');
-  const binary = compile(contents);
+  const unoptimized = compile(contents);
+  const output = optimize ? optimizingCompiler(unoptimized) : unoptimized;
 
-  const text = readBinary(binary);
+  const text = readBinary(output);
   console.log(text.emitText());
   const filePathWithoutExtension = filePath.slice(0, filePath.lastIndexOf('.'));
-  fs.writeFileSync(`${filePathWithoutExtension}.wasm`, binary);
+  fs.writeFileSync(`${filePathWithoutExtension}.wasm`, output);
 }
