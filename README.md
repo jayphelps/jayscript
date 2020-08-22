@@ -53,4 +53,4 @@ jayscript example.js
 
 ## Notes
 
-This is just a joke. :shipit:
+[This is just a joke.](https://twitter.com/_jayphelps/status/1296980153294368773) :shipit:
