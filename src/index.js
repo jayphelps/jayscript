@@ -1,3 +1,7 @@
+/**
+ * https://twitter.com/_jayphelps/status/1296980153294368773
+ */
+
 import fs from 'fs';
 import binaryen from 'binaryen';
 import { exit } from 'process';
@@ -329,21 +333,26 @@ class CodegenVisitor {
   }
 }
 
-function compile(input) {
+function compile(input, options) {
   const parser = new Parser();
   const ast = parser.parse(input);
 
   const visitor = new CodegenVisitor();
   const module = visitor.visit(ast);
 
+  if (options.optimize) {
+    optimizingCompiler(module);
+  }
+
+  console.log(module.emitText());
+
   return module.emitBinary();
 }
 
-// lolz
-function optimizingCompiler(binary) {
-  const module = readBinary(binary);
+// lolz "optimizing compiler"
+// https://twitter.com/RReverser/status/1296981925622677504
+function optimizingCompiler(module) {
   module.optimize();
-  return module.emitBinary();
 }
 
 function panic(msg) {
@@ -364,11 +373,8 @@ export function main(args) {
 
   const [filePath] = args;
   const contents = fs.readFileSync(filePath, 'utf-8');
-  const unoptimized = compile(contents);
-  const output = optimize ? optimizingCompiler(unoptimized) : unoptimized;
+  const binary = compile(contents, { optimize });
 
-  const text = readBinary(output);
-  console.log(text.emitText());
   const filePathWithoutExtension = filePath.slice(0, filePath.lastIndexOf('.'));
-  fs.writeFileSync(`${filePathWithoutExtension}.wasm`, output);
+  fs.writeFileSync(`${filePathWithoutExtension}.wasm`, binary);
 }
